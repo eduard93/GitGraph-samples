@@ -158,13 +158,34 @@ function case7() {
 };
 
 
+function case8() {
+    var gitgraph = getGraph("case8");
+    var master = gitgraph.branch("master").commit();
+
+
+    var feature1 = gitgraph.branch("feature1");    // New branch from HEAD
+
+    var preprod = gitgraph.branch("preprod");
+    var prod = gitgraph.branch("prod");
+
+    feature1.commit().commit();
+    feature1.merge(master);
+
+
+    master.merge(preprod);
+
+    preprod.merge(prod);
+
+};
+
+
 
 
 
 function main() {
 
     var func = "case";
-    for (i = 1; i < 8; i++) {
+    for (i = 1; i < 9; i++) {
         var name = func + i
         window[name]();
         exportCanvasAsPNG(name, name  + ".png");
