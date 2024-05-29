@@ -72,17 +72,17 @@ function getGraph(element) {
 
 function case1() {
     var gitgraph = getGraph("case1");
-    var master = gitgraph.branch("master").commit().commit();
+    var master = gitgraph.branch("main").commit().commit();
 };
 
 function case2() {
     var gitgraph = getGraph("case2");
-    var master = gitgraph.branch("master").commit().commit().commit().commit().commit();
+    var master = gitgraph.branch("main").commit().commit().commit().commit().commit();
 };
 
 function case3() {
     var gitgraph = getGraph("case3");
-    var master = gitgraph.branch("master").commit().commit();
+    var master = gitgraph.branch("main").commit().commit();
     var develop = gitgraph.branch("develop");    // New branch from HEAD
 
     develop.commit().commit();
@@ -91,7 +91,7 @@ function case3() {
 
 function case4() {
     var gitgraph = getGraph("case4");
-    var master = gitgraph.branch("master").commit().commit();
+    var master = gitgraph.branch("main").commit().commit();
     var develop = gitgraph.branch("develop");    // New branch from HEAD
 
     develop.commit().commit();
@@ -101,15 +101,15 @@ function case4() {
 
 function case5() {
     var gitgraph = getGraph("case5");
-    var master = gitgraph.branch("master").commit().commit();
-    var develop = gitgraph.branch("develop");    // New branch from HEAD
+    var master = gitgraph.branch("main").commit().commit();
+    var develop = gitgraph.branch("feature1");    // New branch from HEAD
 
     develop.commit().commit();
     master.commit();
     develop.merge(master);
     master.commit();
 
-    var feature = gitgraph.branch("feature");
+    var feature = gitgraph.branch("feature2");
     master.commit();
     feature.commit();
 
@@ -118,7 +118,7 @@ function case5() {
 
 function case6() {
     var gitgraph = getGraph("case6");
-    var master = gitgraph.branch("master").commit().commit();
+    var master = gitgraph.branch("main").commit().commit();
     var feature1 = gitgraph.branch("feature1");    // New branch from HEAD
 
     feature1.commit().commit();
@@ -132,14 +132,14 @@ function case6() {
 
 function case7() {
     var gitgraph = getGraph("case7");
-    var master = gitgraph.branch("master").commit();
+    var master = gitgraph.branch("dev").commit();
 
 
     var feature1 = gitgraph.branch("feature1");    // New branch from HEAD
     var feature2 = gitgraph.branch("feature2");
 
-    var preprod = gitgraph.branch("preprod");
-    var prod = gitgraph.branch("prod");
+    var preprod = gitgraph.branch("test");
+    var prod = gitgraph.branch("live");
 
     feature1.commit().commit();
     feature1.merge(master);
@@ -159,22 +159,33 @@ function case7() {
 
 
 function case8() {
-    var gitgraph = getGraph("case8");
-    var master = gitgraph.branch("master").commit();
+    var gitgraph = getGraph("case7");
+    var master = gitgraph.branch("dev").commit();
 
 
     var feature1 = gitgraph.branch("feature1");    // New branch from HEAD
+    var feature2 = gitgraph.branch("feature2");
 
-    var preprod = gitgraph.branch("preprod");
-    var prod = gitgraph.branch("prod");
+    var test = gitgraph.branch("test");
+    var rc = gitgraph.branch("rc");
+    var live = gitgraph.branch("live");
 
     feature1.commit().commit();
     feature1.merge(master);
 
 
-    master.merge(preprod);
 
-    preprod.merge(prod);
+    feature2.commit().commit();
+    feature2.merge(master);
+
+    master.merge(test);
+
+    test.merge(rc);
+    
+    rc.commit();
+    rc.merge(live);
+
+    master.commit();
 
 };
 
